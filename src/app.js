@@ -18,7 +18,9 @@ const userData = fs.readFileSync("src/json/users.json", { encoding: "utf8" });
 
 const users = JSON.parse(userData);
 
-app.post("/tranfser", (req, res) => {
+app.get("/transfer", (req, res) => res.render("transfer"));
+
+app.post("/transfer", (req, res) => {
   accounts[req.body.from].balance =
     accounts[req.body.from].balance - req.body.amount;
   accounts[req.body.to].balance =
@@ -54,8 +56,6 @@ app.post("/payment", (req, res) => {
 app.get("/", (req, res) =>
   res.render("index", { title: "Account Summary", accounts: accounts })
 );
-
-app.get("/transfer", (req, res) => res.render("transfer"));
 
 app.get("/savings", (req, res) =>
   res.render("account", { account: accounts.savings })
